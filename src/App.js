@@ -52,6 +52,18 @@ class App extends Component {
             <input type="text" ref="email" placeholder="Email" className="form-control"/>
             </div>
           </div>
+          <div className="form-group row">
+            <label for="" className="col-sm-2 col-form-label">Year</label>
+            <div className="col-sm-10">
+            <input type="text" ref="year" placeholder="Year" className="form-control"/>
+            </div>
+          </div>
+          <div className="form-group row">
+            <label for="" className="col-sm-2 col-form-label">Image</label>
+            <div className="col-sm-10">
+            <input type="file" ref="icon" placeholder="Image" className="form-control"/>
+            </div>
+          </div>
           <button onClick={(e)=>this.fSubmit(e)} className="btn btn-success">Submit</button>
           </form>
           <div className="container">
@@ -63,6 +75,8 @@ class App extends Component {
             <th scope="col">Details</th>
             <th scope="col">Venue</th>
             <th scope="col">Email</th>
+            <th scope="col">Year</th>
+            <th scope="col">Image</th>
             <th scope="col">Actions</th>
           </tr>
           </thead>
@@ -74,6 +88,8 @@ class App extends Component {
           <td>{event.details}</td>        
           <td>{event.venue}</td>
           <td>{event.email}</td>
+          <td>{event.year = 2020}</td>
+          <td><img src={event.icon_url} width="100" height="100"/></td>
           <td>
             <button className={event.showHide ? "hidden": "btn btn-success"} onClick={() => this.fEdit(event,index)}>Update</button>
             <button className={event.showHide ? "hidden": "btn btn-danger"} onClick={() => this.fRemove(index)}>Delete</button>
@@ -95,10 +111,13 @@ class App extends Component {
     //console.log(datas[1])
     let name = this.refs.name.value;
     let venue = this.refs.venue.value;
-    let email = this.refs.email.value
+    let email = this.refs.email.value;
+    let year = this.refs.year.value;
+  //  let icon = this.refs.icon.value;
+    //console.log(icon)
     if(this.state.act === 0){
       let d = {
-        name, venue, email
+        name, venue, email, year
       }
       datas.push(d);
     }
@@ -108,6 +127,8 @@ class App extends Component {
       datas[index].name = name;
       datas[index].venue = venue;
       datas[index].email = email;
+      datas[index].year = year;
+    //  datas[index].icon_url = icon;
     }
     this.setState({
       data: datas
@@ -130,6 +151,9 @@ class App extends Component {
     this.refs.name.value = d.name;
     this.refs.venue.value = d.venue;
     this.refs.email.value = d.email;
+    this.refs.year.value = d.year;
+    //console.log(d.icon_url)
+    //this.refs.icon.value = "";
     this.setState({
       act:1,
       index:e
